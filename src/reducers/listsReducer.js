@@ -2,37 +2,37 @@ import { CONSTANTS } from '../actions';
 import { CardMedia } from '@material-ui/core';
 
 let listID = 2;
-let cardID = 4;
+let cardID = 5;
 
 const initialState = [
   {
     title: 'Last Episode',
-    id: 0,
+    id: `list-${0}`,
     cards: [
       {
-        id: 0,
+        id: `card-${0}`,
         text: 'we created a static list a static card'
       },
       {
-        id: 1,
+        id: `card-${1}`,
         text: 'we used a mix between..'
       }
     ]
   },
   {
     title: 'This Episode',
-    id: 1,
+    id: `list-${1}`,
     cards: [
       {
-        id: 0,
+        id: `card-${2}`,
         text: 'we will create our first reducer'
       },
       {
-        id: 1,
+        id: `card-${3}`,
         text: 'and render manh'
       },
       {
-        id: 2,
+        id: `card-${4}`,
         text: 'asdasdasdasd'
       }
     ]
@@ -45,15 +45,15 @@ const listsReducer = (state = initialState, action) => {
       const newList = {
         title: action.payload,
         cards: [],
-        id: listID
+        id: `list-${listID}`
       };
       listID += 1;
       return [...state, newList];
 
-    case CONSTANTS.ADD_CARD:
+    case CONSTANTS.ADD_CARD: {
       const newCard = {
         text: action.payload.text,
-        id: cardID
+        id: `card-${cardID}`
       };
       cardID += 1;
 
@@ -67,6 +67,25 @@ const listsReducer = (state = initialState, action) => {
           return list;
         }
       });
+      return newState;
+    }
+    case CONSTANTS.DRAG_HAPPENED:
+      const {
+        droppableIdStart,
+        droppableIdEnd,
+        droppableIndexStart,
+        droppableIndexEnd,
+        draggableId
+      } = action.payload;
+
+      const newState = [...state];
+
+      //In the same list
+      if (droppableIdStart === droppableIdEnd) {
+        const list = state.find(list => droppableIdStart === list.id);
+        const card = list.cards.splice(droppableIndexStart, 1);
+        list.cards.splice(droppableIndexEnd, 0, ...card);
+      }
       return newState;
 
     default:
