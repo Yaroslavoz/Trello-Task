@@ -1,18 +1,27 @@
 import React from 'react';
 import TrelloCard from './TrelloCard';
-import TrelleActionButton from './TrelloActionButton';
+import TrelloActionButton from './TrelloActionButton';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import styled from 'styled-components';
+
 
 const ListContainer = styled.div`
   background: rgba(255, 255, 255, 0.75);
-  borderradius: 3px;
+  border-radius: 5px;
   width: 300px;
   height: 100%;
   margin-right: 8px;
+  padding: 8px;
 `;
+const TitleContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px
+`
 
-const TrelloList = ({ title, cards, listID, index }) => {
+const TrelloList = ({ title, cards, listID, index, onClick }) => {
   return (
     <Draggable draggableId={String(listID)} index={index}>
       {provided => (
@@ -24,7 +33,11 @@ const TrelloList = ({ title, cards, listID, index }) => {
           <Droppable droppableId={String(listID)}>
             {provided => (
               <div {...provided.dragHandleProps} ref={provided.innerRef}>
-                <h4>{title}</h4>
+                <TitleContainer>
+                  <h2>{title}</h2>
+                  <DeleteForeverIcon onClick={onClick}/>
+                </TitleContainer>
+                
                 {cards.map((card, index) => (
                   <TrelloCard
                     key={card.id}
@@ -33,7 +46,7 @@ const TrelloList = ({ title, cards, listID, index }) => {
                     index={index}
                   />
                 ))}
-                <TrelleActionButton listID={listID} />
+                <TrelloActionButton listID={listID} />
               </div>
             )}
           </Droppable>

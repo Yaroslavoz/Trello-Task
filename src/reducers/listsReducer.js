@@ -5,7 +5,7 @@ let cardID = 5;
 
 const initialState = [
   {
-    title: 'Last Episode',
+    title: 'Backlog',
     id: `list-${0}`,
     cards: [
       {
@@ -19,7 +19,7 @@ const initialState = [
     ]
   },
   {
-    title: 'This Episode',
+    title: 'In Progress',
     id: `list-${1}`,
     cards: [
       {
@@ -48,6 +48,9 @@ const listsReducer = (state = initialState, action) => {
       };
       listID += 1;
       return [...state, newList];
+
+      case CONSTANTS.DELETE_LIST:
+      return state.filter((item) => item.id !== action.id);
 
     case CONSTANTS.ADD_CARD: {
       const newCard = {
@@ -79,7 +82,7 @@ const listsReducer = (state = initialState, action) => {
 
       const newState = [...state];
 
-      // draggin lists around - the listOrderReducer should handle this
+      // dragging lists around - the listOrderReducer should handle this
       if (type === "list") {
         const list = newState.splice(droppableIndexStart, 1);
         newState.splice(droppableIndexEnd, 0, ...list);

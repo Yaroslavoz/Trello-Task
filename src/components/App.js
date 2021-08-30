@@ -3,10 +3,13 @@ import TrelloList from './TrelloList';
 import { connect } from 'react-redux';
 import TrelloActionButton from './TrelloActionButton';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { sort } from '../actions';
+import { sort} from '../actions';
 import styled from 'styled-components';
 
 const ListContainer = styled.div`
+  margin: 8px;
+  padding: 8px;
+  border-radius: 5px;
   display: flex;
   flex-direction: row;
 `;
@@ -44,6 +47,7 @@ class App extends Component {
               >
                 {lists.map((list, index) => (
                   <TrelloList
+                    // onClick={this.props.dispatch({type: 'DELETE_LIST'})}
                     listID={list.id}
                     key={list.id}
                     title={list.title}
