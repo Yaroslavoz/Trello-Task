@@ -2,8 +2,8 @@ import React from 'react';
 import TrelloCard from './TrelloCard';
 import TrelloActionButton from './TrelloActionButton';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import styled from 'styled-components';
+import TrelloDeleteButton from './TrelloDeleteButton';
 
 
 const ListContainer = styled.div`
@@ -18,10 +18,10 @@ const TitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 12px
-`
+  padding: 0 12px;
+  `
 
-const TrelloList = ({ title, cards, listID, index, onClick }) => {
+const TrelloList = ({ title, cards, listID, index }) => {
   return (
     <Draggable draggableId={String(listID)} index={index}>
       {provided => (
@@ -35,7 +35,9 @@ const TrelloList = ({ title, cards, listID, index, onClick }) => {
               <div {...provided.dragHandleProps} ref={provided.innerRef}>
                 <TitleContainer>
                   <h2>{title}</h2>
-                  <DeleteForeverIcon onClick={onClick}/>
+                  <TrelloDeleteButton 
+                  id={listID}
+                  />
                 </TitleContainer>
                 
                 {cards.map((card, index) => (

@@ -50,7 +50,8 @@ const listsReducer = (state = initialState, action) => {
       return [...state, newList];
 
       case CONSTANTS.DELETE_LIST:
-      return state.filter((item) => item.id !== action.id);
+        console.log(action)
+      return state.filter(list => list.id !== action.listId);
 
     case CONSTANTS.ADD_CARD: {
       const newCard = {

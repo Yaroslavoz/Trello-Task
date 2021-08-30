@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import TrelloList from './TrelloList';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'
+import * as ListActions from '../actions'
 import TrelloActionButton from './TrelloActionButton';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-import { sort} from '../actions';
+import { sort } from '../actions';
 import styled from 'styled-components';
 
 const ListContainer = styled.div`
@@ -69,5 +71,9 @@ class App extends Component {
 const mapStateToProps = state => ({
   lists: state.lists
 });
+const mapDispatchToProps = dispatch => ({
+  actions: bindActionCreators(ListActions, dispatch)
+})
 
-export default connect(mapStateToProps)(App);
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

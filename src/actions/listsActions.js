@@ -6,11 +6,10 @@ export const addList = title => {
     payload: title
   };
 };
-export const deleteList = () => {
-  return {
-    type: CONSTANTS.DELETE_LIST
-  }
-}
+export const deleteList = listId =>  {
+  console.log('trying to delete.. ', listId)
+  return { type: CONSTANTS.DELETE_LIST, listId }}
+
 
 export const sort = (
   droppableIdStart,
