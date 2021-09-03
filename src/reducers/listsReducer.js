@@ -10,11 +10,13 @@ const initialState = [
     cards: [
       {
         id: `card-${0}`,
-        text: 'we created a static list a static card'
+        text: 'we created a static list a static card',
+        createdAt: new Date().toDateString()
       },
       {
         id: `card-${1}`,
-        text: 'we used a mix between..'
+        text: 'we used a mix between..',
+        createdAt: new Date().toDateString()
       }
     ]
   },
@@ -24,15 +26,18 @@ const initialState = [
     cards: [
       {
         id: `card-${2}`,
-        text: 'we will create our first reducer'
+        text: 'we will create our first reducer',
+        createdAt: new Date().toDateString()
       },
       {
         id: `card-${3}`,
-        text: 'and render manh'
+        text: 'and render manh',
+        createdAt: new Date().getMinutes()
       },
       {
         id: `card-${4}`,
-        text: 'asdasdasdasd'
+        text: 'asdasdasdasd',
+        createdAt: new Date().toLocaleTimeString()
       }
     ]
   }
@@ -56,8 +61,10 @@ const listsReducer = (state = initialState, action) => {
     case CONSTANTS.ADD_CARD: {
       const newCard = {
         text: action.payload.text,
-        id: `card-${cardID}`
+        id: `card-${cardID}`,
+        createdAt: new Date().toDateString()
       };
+      
       cardID += 1;
 
       const newState = state.map(list => {
@@ -70,6 +77,7 @@ const listsReducer = (state = initialState, action) => {
           return list;
         }
       });
+      console.log(newState)
       return newState;
     }
     case CONSTANTS.DRAG_HAPPENED:

@@ -9,7 +9,7 @@ const CardContainer = styled.div`
   margin-bottom: 8px;
 `;
 
-const TrelloCard = ({ text, id, index }) => {
+const TrelloCard = ({ text, id, index, createdAt }) => {
   return (
     <Draggable draggableId={String(id)} index={index}>
       {provided => (
@@ -21,7 +21,8 @@ const TrelloCard = ({ text, id, index }) => {
           >
             <Card>
               <CardContent>
-                <Typography gutterBottom>{text}</Typography>
+                <Typography >{text}</Typography>
+                <Typography>Created at: {createdAt}</Typography>
               </CardContent>
             </Card>
           </div>

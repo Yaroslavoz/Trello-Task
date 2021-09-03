@@ -21,7 +21,7 @@ const TitleContainer = styled.div`
   padding: 0 12px;
   `
 
-const TrelloList = ({ title, cards, listID, index }) => {
+const TrelloList = ({ title, cards, listID, index, createdAt }) => {
   return (
     <Draggable draggableId={String(listID)} index={index}>
       {provided => (
@@ -44,6 +44,7 @@ const TrelloList = ({ title, cards, listID, index }) => {
                   <TrelloCard
                     key={card.id}
                     text={card.text}
+                    createdAt={card.createdAt}
                     id={card.id}
                     index={index}
                   />

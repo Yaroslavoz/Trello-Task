@@ -71,9 +71,11 @@ class App extends Component {
 const mapStateToProps = state => ({
   lists: state.lists
 });
-const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators(ListActions, dispatch)
-})
+// const mapDispatchToProps = dispatch => ({
+//   actions: bindActionCreators(ListActions, dispatch)
+// })
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+// export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps)(App);
+
