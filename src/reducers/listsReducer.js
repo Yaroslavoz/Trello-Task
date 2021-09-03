@@ -43,6 +43,21 @@ const initialState = [
   }
 ];
 
+const humanizeDateTime = ( date, currentDate = +new Date() ) => {
+ 
+  const datetimeDiff = currentDate - date;
+  if (datetimeDiff < 60000) {
+        return 'just a moment ago';
+      }
+  else if(datetimeDiff < 3600000){
+    return `${datetimeDiff/60000} minutes ago`
+  }
+  else if(datetimeDiff < 3600000){
+    return `${datetimeDiff/3600000} hours ago`
+  }
+  else return 'Long time ago...'
+}
+
 const listsReducer = (state = initialState, action) => {
   switch (action.type) {
     case CONSTANTS.ADD_LIST:
@@ -71,8 +86,14 @@ const listsReducer = (state = initialState, action) => {
         if (list.id === action.payload.listID) {
           return {
             ...list,
-            cards: [...list.cards, newCard]
+            cards: [
+              list.cards.reduce((acc, rec) => ([...acc, { ...rec, createdAt: humanizeDateTime(rec.createdAt)}]),[]),
+              newCard
+            ]
+            // cards: [...list.cards, newCard]
+            
           };
+          
         } else {
           return list;
         }
