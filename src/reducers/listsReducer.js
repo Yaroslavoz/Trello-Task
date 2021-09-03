@@ -11,12 +11,12 @@ const initialState = [
       {
         id: `card-${0}`,
         text: 'we created a static list a static card',
-        createdAt: new Date().toDateString()
+        createdAt: +new Date()
       },
       {
         id: `card-${1}`,
         text: 'we used a mix between..',
-        createdAt: new Date().toDateString()
+        createdAt: +new Date()
       }
     ]
   },
@@ -27,17 +27,17 @@ const initialState = [
       {
         id: `card-${2}`,
         text: 'we will create our first reducer',
-        createdAt: new Date().toDateString()
+        createdAt: +new Date()
       },
       {
         id: `card-${3}`,
         text: 'and render manh',
-        createdAt: new Date().getMinutes()
+        createdAt: +new Date()
       },
       {
         id: `card-${4}`,
         text: 'asdasdasdasd',
-        createdAt: new Date().toLocaleTimeString()
+        createdAt: +new Date()
       }
     ]
   }
@@ -62,7 +62,7 @@ const listsReducer = (state = initialState, action) => {
       const newCard = {
         text: action.payload.text,
         id: `card-${cardID}`,
-        createdAt: new Date().toDateString()
+        createdAt: +new Date()
       };
       
       cardID += 1;

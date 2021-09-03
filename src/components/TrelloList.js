@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import TrelloCard from './TrelloCard';
 import TrelloActionButton from './TrelloActionButton';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
@@ -21,7 +21,38 @@ const TitleContainer = styled.div`
   padding: 0 12px;
   `
 
-const TrelloList = ({ title, cards, listID, index, createdAt }) => {
+
+
+const TrelloList = ({ title, cards, listID, index }) => {
+
+  const humanizeDateTime = ( date, currentDate = new Date() ) => {
+ 
+    const datetimeDiff = currentDate - date;
+    if (datetimeDiff < 60000) {
+          return 'just a moment ago';
+        }
+    else if(datetimeDiff < 3600000){
+      return `${datetimeDiff/60000} minutes ago`
+    }
+    else if(datetimeDiff < 3600000){
+      return `${datetimeDiff/3600000} hours ago`
+    }
+    else return 'Long time ago...'
+  }
+  //   if (datetimeDiff < (1 minute)) {
+  //     return 'just a moment ago';
+  //   } else if (dateTimeDiff < 60 min) {
+  //     return `${datetimeDiff} minutes ago;
+  //   } else {
+  //     // etc for hours, days, years if you want ...  
+  //   }
+  // }
+
+  useEffect(() => {
+   cards.map(card => Object.assign({}, {...card, createdAt: humanizeDateTime(card.createdAt)}))
+   console.log(cards); 
+  }, [cards]);
+
   return (
     <Draggable draggableId={String(listID)} index={index}>
       {provided => (
