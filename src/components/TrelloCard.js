@@ -4,12 +4,20 @@ import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 import { Draggable } from 'react-beautiful-dnd';
 import styled from 'styled-components';
+import  TrelloDeleteCardButton  from './TrelloDeleteCardButton'
 
 const CardContainer = styled.div`
   margin-bottom: 8px;
 `;
+const TitleContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px;
+  `
 
-const TrelloCard = ({ text, id, index, createdAt }) => {
+const TrelloCard = ({ text, id, listID, index, createdAt }) => {
+  
   return (
     <Draggable draggableId={String(id)} index={index}>
       {provided => (
@@ -21,8 +29,14 @@ const TrelloCard = ({ text, id, index, createdAt }) => {
           >
             <Card>
               <CardContent>
-                <Typography >{text}</Typography>
-                <Typography>Created at: {createdAt}</Typography>
+                <TitleContainer>
+                  <Typography gutterBottom>{text}</Typography>
+                  <TrelloDeleteCardButton
+                    listID={listID} 
+                    id={id}
+                    />
+                </TitleContainer>
+                <Typography>Last modified: {createdAt}</Typography>
               </CardContent>
             </Card>
           </div>

@@ -28,28 +28,31 @@ const TitleContainer = styled.div`
           return 'just a moment ago';
         }
     else if(datetimeDiff < 3600000){
-      return `${datetimeDiff/60000} minutes ago`
+      return `${Math.floor(datetimeDiff/60000)} minutes ago`
     }
     else if(datetimeDiff < 3600000){
-      return `${datetimeDiff/3600000} hours ago`
+      return `${Math.floor(datetimeDiff/3600000)} hours ago`
     }
     else return 'Long time ago...'
   }
 
 const TrelloList = ({ title, cards, listID, index }) => {
 
-  const [lastEdited, setLastEditedDate] = useState()
+  const [lastEdited, setLastEditedDate] = useState([])
    
-  
-  const la = cards.reduce((acc, rec) => ([...acc, { ...rec, createdAt: humanizeDateTime(rec.createdAt)}]),[])
-  // setLastEditedDate(la)
-  useEffect(() => {
-    // const la = cards.reduce((acc, rec) => ([...acc, { ...rec, createdAt: humanizeDateTime(rec.createdAt)}]),[])
+   
+    useEffect(() => {
+    const la = cards.reduce((acc, rec) => ([...acc, { ...rec, createdAt: humanizeDateTime(rec.createdAt)}]),[])
     setLastEditedDate(la)
-   
-   console.log(lastEdited) 
-  }, [cards]);
-  // console.log(lastEdited)
+    const interval = setInterval(() => {
+      setLastEditedDate(cards.reduce((acc, rec) => ([...acc, { ...rec, createdAt: humanizeDateTime(rec.createdAt)}]),[]));
+    }, 60000);
+
+    return () => {
+      clearInterval(interval);
+    };
+    }, [cards]);
+  
   return (
     <Draggable draggableId={String(listID)} index={index}>
       {provided => (
@@ -68,12 +71,13 @@ const TrelloList = ({ title, cards, listID, index }) => {
                   />
                 </TitleContainer>
                 
-                {cards.map((card, index) => (
+                {lastEdited && lastEdited.map((card, index) => (
                   <TrelloCard
                     key={card.id}
                     text={card.text}
                     createdAt={card.createdAt}
                     id={card.id}
+                    listID={listID}
                     index={index}
                   />
                 ))}

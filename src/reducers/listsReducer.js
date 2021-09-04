@@ -69,9 +69,9 @@ const listsReducer = (state = initialState, action) => {
       listID += 1;
       return [...state, newList];
 
-      case CONSTANTS.DELETE_LIST:
-        console.log(action)
-      return state.filter(list => list.id !== action.listId);
+    case CONSTANTS.DELETE_LIST:
+      
+    return state.filter(list => list.id !== action.listId);
 
     case CONSTANTS.ADD_CARD: {
       const newCard = {
@@ -86,11 +86,7 @@ const listsReducer = (state = initialState, action) => {
         if (list.id === action.payload.listID) {
           return {
             ...list,
-            cards: [
-              list.cards.reduce((acc, rec) => ([...acc, { ...rec, createdAt: humanizeDateTime(rec.createdAt)}]),[]),
-              newCard
-            ]
-            // cards: [...list.cards, newCard]
+            cards: [...list.cards, newCard]
             
           };
           
@@ -101,6 +97,28 @@ const listsReducer = (state = initialState, action) => {
       console.log(newState)
       return newState;
     }
+
+    case CONSTANTS.DELETE_CARD:
+      
+    
+    const updatedState = state.map(list => {
+      if (list.id === action.payload.listID) {
+        const updatedCards = list.cards.filter(card => card.id !== action.payload.cardID)
+        return {
+          ...list,
+          cards: [...updatedCards]
+          
+        };
+        
+      } else {
+        return list;
+      }
+    });
+    console.log('updatedCards', updatedState)
+    return updatedState
+    
+
+
     case CONSTANTS.DRAG_HAPPENED:
       const {
         droppableIdStart,

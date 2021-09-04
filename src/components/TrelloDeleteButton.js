@@ -10,10 +10,7 @@ color: gray
 `
 
 class TrelloDeleteButton extends Component {
-  state = {
-    formOpen: false,
-    text: ''
-  };
+  state = {};
 
 
   handleDeleteList = () => {
@@ -21,20 +18,20 @@ class TrelloDeleteButton extends Component {
       dispatch(deleteList(id));
   };
 
+  // handleDeleteCard = () => {
+  //   const { dispatch, id, listID } = this.props;
+  //     dispatch(deleteCard(id, listID));
+  // };
+
  
   renderDeleteButton = () => {
     const { list } = this.props;
-
-    
-    const buttonTextColor = list ? 'white' : 'inherit';
-    
-
     return (
       <DeleteButton
-        onClick={this.handleDeleteList}
+      onClick={ this.handleDeleteList }
         
       >
-        <Icon>delete</Icon>
+        <Icon>close</Icon>
         
       </DeleteButton>
     );
@@ -45,21 +42,6 @@ class TrelloDeleteButton extends Component {
     return this.renderDeleteButton();
   }
 }
-// const styles = {
-//   openFormButtonGroup: {
-//     display: 'flex',
-//     alignItems: 'center',
-//     cursor: 'pointer',
-//     borderRadius: 3,
-//     height: 36,
-//     width: 272,
-//     paddingLeft: 10
-//   },
-//   formButtonGroup: {
-//     marginTop: 8,
-//     display: 'flex',
-//     alignItems: 'center'
-//   }
-// };
+
 
 export default connect()(TrelloDeleteButton);
