@@ -10,11 +10,13 @@ const initialState = [
     cards: [
       {
         id: `card-${0}`,
-        text: 'we created a static list a static card'
+        text: 'we created a static list a static card',
+        createdAt: +new Date()
       },
       {
         id: `card-${1}`,
-        text: 'we used a mix between..'
+        text: 'we used a mix between..',
+        createdAt: +new Date()
       }
     ]
   },
@@ -24,19 +26,37 @@ const initialState = [
     cards: [
       {
         id: `card-${2}`,
-        text: 'we will create our first reducer'
+        text: 'we will create our first reducer',
+        createdAt: +new Date()
       },
       {
         id: `card-${3}`,
-        text: 'and render manh'
+        text: 'and render manh',
+        createdAt: +new Date()
       },
       {
         id: `card-${4}`,
-        text: 'asdasdasdasd'
+        text: 'asdasdasdasd',
+        createdAt: +new Date()
       }
     ]
   }
 ];
+
+const humanizeDateTime = ( date, currentDate = +new Date() ) => {
+ 
+  const datetimeDiff = currentDate - date;
+  if (datetimeDiff < 60000) {
+        return 'just a moment ago';
+      }
+  else if(datetimeDiff < 3600000){
+    return `${datetimeDiff/60000} minutes ago`
+  }
+  else if(datetimeDiff < 3600000){
+    return `${datetimeDiff/3600000} hours ago`
+  }
+  else return 'Long time ago...'
+}
 
 const listsReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -49,14 +69,17 @@ const listsReducer = (state = initialState, action) => {
       listID += 1;
       return [...state, newList];
 
-      case CONSTANTS.DELETE_LIST:
-      return state.filter((item) => item.id !== action.id);
+    case CONSTANTS.DELETE_LIST:
+      
+    return state.filter(list => list.id !== action.listId);
 
     case CONSTANTS.ADD_CARD: {
       const newCard = {
         text: action.payload.text,
-        id: `card-${cardID}`
+        id: `card-${cardID}`,
+        createdAt: +new Date()
       };
+      
       cardID += 1;
 
       const newState = state.map(list => {
@@ -64,13 +87,38 @@ const listsReducer = (state = initialState, action) => {
           return {
             ...list,
             cards: [...list.cards, newCard]
+            
           };
+          
         } else {
           return list;
         }
       });
+      console.log(newState)
       return newState;
     }
+
+    case CONSTANTS.DELETE_CARD:
+      
+    
+    const updatedState = state.map(list => {
+      if (list.id === action.payload.listID) {
+        const updatedCards = list.cards.filter(card => card.id !== action.payload.cardID)
+        return {
+          ...list,
+          cards: [...updatedCards]
+          
+        };
+        
+      } else {
+        return list;
+      }
+    });
+    console.log('updatedCards', updatedState)
+    return updatedState
+    
+
+
     case CONSTANTS.DRAG_HAPPENED:
       const {
         droppableIdStart,
