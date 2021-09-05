@@ -7,8 +7,7 @@ export const addList = title => {
   };
 };
 export const deleteList = listId =>  {
-  console.log('trying to delete.. ', listId)
-  return { type: CONSTANTS.DELETE_LIST, listId }}
+   return { type: CONSTANTS.DELETE_LIST, listId }}
 
 
 export const sort = (

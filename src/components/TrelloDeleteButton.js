@@ -18,14 +18,10 @@ class TrelloDeleteButton extends Component {
       dispatch(deleteList(id));
   };
 
-  // handleDeleteCard = () => {
-  //   const { dispatch, id, listID } = this.props;
-  //     dispatch(deleteCard(id, listID));
-  // };
 
  
   renderDeleteButton = () => {
-    const { list } = this.props;
+    
     return (
       <DeleteButton
       onClick={ this.handleDeleteList }

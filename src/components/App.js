@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import TrelloList from './TrelloList';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'
-import * as ListActions from '../actions'
 import TrelloActionButton from './TrelloActionButton';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 import { sort } from '../actions';
@@ -49,7 +47,6 @@ class App extends Component {
               >
                 {lists.map((list, index) => (
                   <TrelloList
-                    // onClick={this.props.dispatch({type: 'DELETE_LIST'})}
                     listID={list.id}
                     key={list.id}
                     title={list.title}
@@ -71,11 +68,6 @@ class App extends Component {
 const mapStateToProps = state => ({
   lists: state.lists
 });
-// const mapDispatchToProps = dispatch => ({
-//   actions: bindActionCreators(ListActions, dispatch)
-// })
 
-
-// export default connect(mapStateToProps, mapDispatchToProps)(App);
 export default connect(mapStateToProps)(App);
 

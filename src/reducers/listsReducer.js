@@ -1,87 +1,63 @@
 import { CONSTANTS } from '../actions';
+import { v4 as uuidv4 } from 'uuid'
 
-let listID = 2;
-let cardID = 5;
 
+
+const browserState = JSON.parse(localStorage.getItem('lastEdited')) 
 const initialState = [
   {
     title: 'Backlog',
-    id: `list-${0}`,
+    id: uuidv4(),
     cards: [
       {
-        id: `card-${0}`,
-        text: 'we created a static list a static card',
+        id: uuidv4(),
+        text: 'to create the newCardForm',
         createdAt: +new Date()
       },
       {
-        id: `card-${1}`,
-        text: 'we used a mix between..',
+        id: uuidv4(),
+        text: 'to make an authorization form and cabinet',
         createdAt: +new Date()
       }
     ]
   },
   {
     title: 'In Progress',
-    id: `list-${1}`,
+    id: uuidv4(),
     cards: [
       {
-        id: `card-${2}`,
-        text: 'we will create our first reducer',
-        createdAt: +new Date()
-      },
-      {
-        id: `card-${3}`,
-        text: 'and render manh',
-        createdAt: +new Date()
-      },
-      {
-        id: `card-${4}`,
-        text: 'asdasdasdasd',
+        id: uuidv4(),
+        text: 'first step in Progress..',
         createdAt: +new Date()
       }
     ]
   }
 ];
 
-const humanizeDateTime = ( date, currentDate = +new Date() ) => {
- 
-  const datetimeDiff = currentDate - date;
-  if (datetimeDiff < 60000) {
-        return 'just a moment ago';
-      }
-  else if(datetimeDiff < 3600000){
-    return `${datetimeDiff/60000} minutes ago`
-  }
-  else if(datetimeDiff < 3600000){
-    return `${datetimeDiff/3600000} hours ago`
-  }
-  else return 'Long time ago...'
-}
 
-const listsReducer = (state = initialState, action) => {
+const listsReducer = (state = browserState||initialState, action) => {
   switch (action.type) {
     case CONSTANTS.ADD_LIST:
       const newList = {
         title: action.payload,
         cards: [],
-        id: `list-${listID}`
+        id: uuidv4()
       };
-      listID += 1;
+      
       return [...state, newList];
 
     case CONSTANTS.DELETE_LIST:
-      
-    return state.filter(list => list.id !== action.listId);
+      const filteredList = state.filter(list => list.id !== action.listId)
+      localStorage.setItem('lastEdited', JSON.stringify(filteredList))
+      return filteredList
 
     case CONSTANTS.ADD_CARD: {
       const newCard = {
         text: action.payload.text,
-        id: `card-${cardID}`,
+        id: uuidv4(),
         createdAt: +new Date()
       };
       
-      cardID += 1;
-
       const newState = state.map(list => {
         if (list.id === action.payload.listID) {
           return {
@@ -94,7 +70,9 @@ const listsReducer = (state = initialState, action) => {
           return list;
         }
       });
-      console.log(newState)
+      
+      localStorage.setItem('lastEdited', JSON.stringify(newState))
+      
       return newState;
     }
 
@@ -114,7 +92,7 @@ const listsReducer = (state = initialState, action) => {
         return list;
       }
     });
-    console.log('updatedCards', updatedState)
+    localStorage.setItem('lastEdited', JSON.stringify(updatedState))
     return updatedState
     
 

@@ -20,7 +20,7 @@ handleDeleteCard = () => {
 
    
   renderDeleteCardButton = () => {
-    const { list } = this.props;
+    
     return (
       <DeleteButton
         onClick={ this.handleDeleteCard }

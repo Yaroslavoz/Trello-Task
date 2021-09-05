@@ -40,7 +40,8 @@ const TrelloList = ({ title, cards, listID, index }) => {
 
   const [lastEdited, setLastEditedDate] = useState([])
    
-   
+    
+
     useEffect(() => {
     const la = cards.reduce((acc, rec) => ([...acc, { ...rec, createdAt: humanizeDateTime(rec.createdAt)}]),[])
     setLastEditedDate(la)
@@ -53,6 +54,7 @@ const TrelloList = ({ title, cards, listID, index }) => {
     };
     }, [cards]);
   
+
   return (
     <Draggable draggableId={String(listID)} index={index}>
       {provided => (
