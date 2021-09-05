@@ -2,7 +2,7 @@
   "name": "trello-like-task-manager",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://Yaroslavoz.github.io/Trello-Task",
+  "homepage": "https://yaroslavoz.github.io/Trello-Task",
   "dependencies": {
     "@material-ui/core": "^4.3.0",
     "@material-ui/icons": "^4.2.1",
