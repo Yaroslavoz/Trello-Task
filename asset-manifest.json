@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.js": "/Trello-Task/static/js/main.2a839ba4.chunk.js",
+    "main.js.map": "/Trello-Task/static/js/main.2a839ba4.chunk.js.map",
+    "runtime~main.js": "/Trello-Task/static/js/runtime~main.1024717e.js",
+    "runtime~main.js.map": "/Trello-Task/static/js/runtime~main.1024717e.js.map",
+    "static/js/2.04f16588.chunk.js": "/Trello-Task/static/js/2.04f16588.chunk.js",
+    "static/js/2.04f16588.chunk.js.map": "/Trello-Task/static/js/2.04f16588.chunk.js.map",
+    "index.html": "/Trello-Task/index.html",
+    "precache-manifest.0d29905fb3d6f48291d83b9fb384455d.js": "/Trello-Task/precache-manifest.0d29905fb3d6f48291d83b9fb384455d.js",
+    "service-worker.js": "/Trello-Task/service-worker.js"
+  }
+}
